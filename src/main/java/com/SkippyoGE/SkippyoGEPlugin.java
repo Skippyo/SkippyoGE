@@ -14,7 +14,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Example"
+	name = "SkippyoGE"
 )
 public class SkippyoGEPlugin extends Plugin
 {
@@ -27,13 +27,13 @@ public class SkippyoGEPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.debug("Example started!");
+		log.debug("SkippyoGE started!");
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.debug("Example stopped!");
+		log.debug("SkippyoGE stopped!");
 	}
 
 	@Subscribe
@@ -41,7 +41,7 @@ public class SkippyoGEPlugin extends Plugin
 	{
 		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
 		{
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.greeting(), null);
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "SkippyoGE says " + config.greeting(), null);
 		}
 	}
 

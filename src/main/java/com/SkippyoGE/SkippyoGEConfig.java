@@ -14,6 +14,6 @@ public interface SkippyoGEConfig extends Config
 	)
 	default String greeting()
 	{
-		return "Hello";
+		return "Welcome To SkippyoGE";
 	}
 }
