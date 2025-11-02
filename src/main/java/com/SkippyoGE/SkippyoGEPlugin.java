@@ -11,10 +11,14 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.ui.ClientToolbar;
+import net.runelite.client.ui.NavigationButton;
+import net.runelite.client.util.ImageUtil;
+import java.awt.image.BufferedImage;
 
 @Slf4j
 @PluginDescriptor(
-	name = "SkippyoGE"
+        name = "SkippyoGE"
 )
 public class SkippyoGEPlugin extends Plugin
 {
@@ -24,17 +28,39 @@ public class SkippyoGEPlugin extends Plugin
 	@Inject
 	private SkippyoGEConfig config;
 
-	@Override
-	protected void startUp() throws Exception
-	{
-		log.debug("SkippyoGE started!");
-	}
+    @Inject
+    private ClientToolbar clientToolbar;
 
-	@Override
-	protected void shutDown() throws Exception
-	{
-		log.debug("SkippyoGE stopped!");
-	}
+    private NavigationButton navButton;
+
+    @Override
+    protected void startUp() throws Exception
+    {
+        log.debug("SkippyoGE started!");
+
+        // This creates an empty panel for now.
+        // You can add UI components to it later.
+        final SkippyoGEPanel panel = new SkippyoGEPanel();
+
+        // This loads your icon from the resources folder.
+        final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "SkippyoGE_logo.PNG");
+
+        navButton = NavigationButton.builder()
+                .tooltip("Skippyo GE Tracker")
+                .icon(icon)
+                .priority(5) // Lower number is higher on the sidebar
+                .panel(panel)
+                .build();
+
+        clientToolbar.addNavigation(navButton);
+    }
+
+    @Override
+    protected void shutDown() throws Exception
+    {
+        log.debug("SkippyoGE stopped!");
+        clientToolbar.removeNavigation(navButton);
+    }
 
 	@Subscribe
 	public void onGameStateChanged(GameStateChanged gameStateChanged)
